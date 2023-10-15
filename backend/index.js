@@ -35,15 +35,11 @@ app.post("/add", async (req, res) => {
   }
 });
 
-app.get("/entries", async (req, res) => {
+app.get("/entries", async (req, res, next) => {
   try {
     const entries = await Report.find({});
-
-    return res.status(200).json({
-      success: true,
-      entries,
-      msg: "all contacts displayed .",
-    });
+    console.log(entries);
+    res.status(200).json(entries);
   } catch (error) {
     console.log(error);
     next(error);

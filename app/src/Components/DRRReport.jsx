@@ -73,7 +73,7 @@ const DRRReport = () => {
     };
 
     axios
-      .post("http://localhost:5000/add", newData)
+      .post("https://hunt-m16y.onrender.com/add", newData)
       .then((response) => {
         console.log("Data saved:", response.data);
       })
@@ -84,7 +84,7 @@ const DRRReport = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/all")
+      .get("https://hunt-m16y.onrender.com/entries")
       .then((response) => {
         setEntries(response.data);
       })
