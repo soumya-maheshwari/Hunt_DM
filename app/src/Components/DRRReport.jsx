@@ -165,137 +165,227 @@ const DRRReport = () => {
 
   return (
     <>
-      <div className="start">
-        <Container
-          style={{
-            paddingTop: "15vh",
-            maxWidth: "90vw",
-            paddingBottom: "99vh",
-          }}
-        >
-          <Paper elevation={3}>
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={handleCancel}
-                >
-                  Add New
-                </Button>
-              </Grid>
-              <Grid item xs={12}>
-                <TableContainer>
-                  <Table>
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>Action</TableCell>
-                        <TableCell>ID</TableCell>
-                        <TableCell>Start Date</TableCell>
-                        <TableCell>End Date</TableCell>
-                        <TableCell>Month,Year</TableCell>
-                        <TableCell>Dates Excluded</TableCell>
-                        <TableCell>No of Days</TableCell>
-                        <TableCell>Lead Count</TableCell>
-                        <TableCell>Expected DRR</TableCell>
-                        <TableCell>Last Updated</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      <TableRow
-                        style={{
-                          backgroundColor: "rgb(187, 183, 183",
-                        }}
-                      >
-                        <TableCell>N/A</TableCell>
-                        <TableCell>{id}</TableCell>
-                        <TableCell>
-                          <TextField
-                            type="date"
-                            value={startDate}
-                            onChange={(e) => setStartDate(e.target.value)}
-                          />
-                        </TableCell>
-                        <TableCell>
-                          <TextField
-                            type="date"
-                            value={endDate}
-                            onChange={(e) => setEndDate(e.target.value)}
-                          />
-                        </TableCell>
-                        <TableCell>
-                          {month}, {year}
-                        </TableCell>
-                        <TableCell>
-                          {excludeDates.join(", ")}
-                          <TextField
-                            type="date"
-                            value={excludeDates.join(", ")} // Display excluded dates as a comma-separated string
-                            onChange={handleDate}
-                          />
-                        </TableCell>
-                        <TableCell>{numDays}day</TableCell>
-                        <TableCell>
-                          <TextField
-                            type="text"
-                            value={leadCount}
-                            onChange={(e) => setLeadCount(e.target.value)}
-                          />
-                        </TableCell>
-                        <TableCell>{expectedLeadCount}</TableCell>
-                        <TableCell
+      <>
+        <div className="start">
+          <Container
+            style={{
+              paddingTop: "15vh",
+              maxWidth: "90vw",
+              paddingBottom: "99vh",
+            }}
+          >
+            <Paper elevation={3}>
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleCancel}
+                  >
+                    Add New
+                  </Button>
+                </Grid>
+                <Grid item xs={12}>
+                  <TableContainer>
+                    <Table>
+                      <TableHead>
+                        <TableRow>
+                          <TableCell style={{ border: "1px solid #000" }}>
+                            Action
+                          </TableCell>
+                          <TableCell style={{ border: "1px solid #000" }}>
+                            ID
+                          </TableCell>
+                          <TableCell style={{ border: "1px solid #000" }}>
+                            Start Date
+                          </TableCell>
+                          <TableCell style={{ border: "1px solid #000" }}>
+                            End Date
+                          </TableCell>
+                          <TableCell style={{ border: "1px solid #000" }}>
+                            Month, Year
+                          </TableCell>
+                          <TableCell style={{ border: "1px solid #000" }}>
+                            Dates Excluded
+                          </TableCell>
+                          <TableCell style={{ border: "1px solid #000" }}>
+                            No of Days
+                          </TableCell>
+                          <TableCell style={{ border: "1px solid #000" }}>
+                            Lead Count
+                          </TableCell>
+                          <TableCell style={{ border: "1px solid #000" }}>
+                            Expected DRR
+                          </TableCell>
+                          <TableCell style={{ border: "1px solid #000" }}>
+                            Last Updated
+                          </TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        <TableRow
                           style={{
-                            display: "flex",
-                            flexDirection: "row",
+                            backgroundColor: "rgb(187, 183, 183",
                           }}
                         >
-                          <Button
-                            size="small"
-                            variant="contained"
-                            color="success"
-                            style={{
-                              marginRight: "0.1vw",
-                            }}
-                            onClick={handleCalculate}
-                          >
-                            Save
-                          </Button>
-                          <Button
-                            size="small"
-                            variant="contained"
-                            color="error"
-                            onClick={handleCancel}
-                          >
-                            Cancel
-                          </Button>
-                        </TableCell>
-                      </TableRow>
-                    </TableBody>
-                    <TableBody>
-                      {entries.map((entry, index) => (
-                        <TableRow key={entry._id}>
-                          <TableCell>N/A</TableCell>
-                          <TableCell>{id + index + 1}</TableCell>
-                          <TableCell>{entry.startDate}</TableCell>
-                          <TableCell>{entry.endDate}</TableCell>
-                          <TableCell>
-                            {entry.month}, {entry.year}
+                          <TableCell style={{ border: "1px solid #000" }}>
+                            N/A
                           </TableCell>
-                          <TableCell>{entry.excludeDates}</TableCell>
-                          <TableCell>{entry.numDays}</TableCell>
-                          <TableCell>{entry.leadCount}</TableCell>
-                          <TableCell>{entry.expectedLeadCount}</TableCell>
+                          <TableCell style={{ border: "1px solid #000" }}>
+                            {id}
+                          </TableCell>
+                          <TableCell style={{ border: "1px solid #000" }}>
+                            <TextField
+                              type="date"
+                              value={startDate}
+                              onChange={(e) => setStartDate(e.target.value)}
+                            />
+                          </TableCell>
+                          <TableCell style={{ border: "1px solid #000" }}>
+                            <TextField
+                              type="date"
+                              value={endDate}
+                              onChange={(e) => setEndDate(e.target.value)}
+                            />
+                          </TableCell>
+                          <TableCell style={{ border: "1px solid #000" }}>
+                            {month}, {year}
+                          </TableCell>
+                          <TableCell style={{ border: "1px solid #000" }}>
+                            {excludeDates
+                              .map(
+                                (date, index) =>
+                                  new Date(date).toISOString().split("T")[0]
+                              )
+                              .reduce((acc, date, index) => {
+                                if (index % 2 === 0) {
+                                  acc.push(
+                                    <div key={index}>
+                                      {date} -{" "}
+                                      {excludeDates[index + 1]
+                                        ? excludeDates[index + 1].split("T")[0]
+                                        : ""}
+                                    </div>
+                                  );
+                                }
+                                return acc;
+                              }, [])}
+                            <TextField
+                              type="date"
+                              value={excludeDates.join(", ")} // Display excluded dates as a comma-separated string
+                              onChange={handleDate}
+                            />
+                          </TableCell>
+                          <TableCell style={{ border: "1px solid #000" }}>
+                            {numDays}
+                          </TableCell>
+                          <TableCell style={{ border: "1px solid #000" }}>
+                            <TextField
+                              type="text"
+                              value={leadCount}
+                              onChange={(e) => setLeadCount(e.target.value)}
+                            />
+                          </TableCell>
+                          <TableCell style={{ border: "1px solid #000" }}>
+                            {expectedLeadCount}
+                          </TableCell>
+                          <TableCell
+                            style={{
+                              display: "flex",
+                              flexDirection: "column",
+                            }}
+                          >
+                            <Button
+                              size="small"
+                              variant="contained"
+                              color="success"
+                              style={{
+                                marginBottom: "0.6vh",
+                              }}
+                              onClick={handleCalculate}
+                            >
+                              Save
+                            </Button>
+                            <Button
+                              size="small"
+                              variant="contained"
+                              color="error"
+                              onClick={handleCancel}
+                            >
+                              Cancel
+                            </Button>
+                          </TableCell>
                         </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
+                      </TableBody>
+                      <TableBody>
+                        {entries.map((entry, index) => (
+                          <TableRow key={entry._id}>
+                            <TableCell style={{ border: "1px solid #000" }}>
+                              N/A
+                            </TableCell>
+                            <TableCell style={{ border: "1px solid #000" }}>
+                              {id + index + 1}
+                            </TableCell>
+                            <TableCell style={{ border: "1px solid #000" }}>
+                              {
+                                new Date(entry.startDate)
+                                  .toISOString()
+                                  .split("T")[0]
+                              }
+                            </TableCell>
+                            <TableCell style={{ border: "1px solid #000" }}>
+                              {
+                                new Date(entry.endDate)
+                                  .toISOString()
+                                  .split("T")[0]
+                              }
+                            </TableCell>
+                            <TableCell style={{ border: "1px solid #000" }}>
+                              {entry.month}, {entry.year}
+                            </TableCell>
+                            <TableCell style={{ border: "1px solid #000" }}>
+                              {entry.excludeDates
+                                .map(
+                                  (date, index) =>
+                                    new Date(date).toISOString().split("T")[0]
+                                )
+                                .reduce((acc, date, index) => {
+                                  if (index % 2 === 0) {
+                                    acc.push(
+                                      <div key={index}>
+                                        {date} -{" "}
+                                        {entry.excludeDates[index + 1]
+                                          ? entry.excludeDates[index + 1].split(
+                                              "T"
+                                            )[0]
+                                          : ""}
+                                      </div>
+                                    );
+                                  }
+                                  return acc;
+                                }, [])}
+                            </TableCell>
+                            <TableCell style={{ border: "1px solid #000" }}>
+                              {entry.numDays}
+                            </TableCell>
+                            <TableCell style={{ border: "1px solid #000" }}>
+                              {entry.leadCount}
+                            </TableCell>
+                            <TableCell style={{ border: "1px solid #000" }}>
+                              {entry.expectedLeadCount}
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                </Grid>
               </Grid>
-            </Grid>
-          </Paper>
-        </Container>
-        <ToastContainer />
-      </div>
+            </Paper>
+          </Container>
+          <ToastContainer />
+        </div>
+      </>
     </>
   );
 };
