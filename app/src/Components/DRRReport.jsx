@@ -154,25 +154,27 @@ const DRRReport = () => {
     }
     console.log(expectedLeadCount);
 
-    axios
-      .post("http://localhost:5000/", newData)
-      .then((response) => {
-        console.log("Data saved:", response);
-        toast.success(`Entry added successfully`, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          theme: "dark",
-          pauseOnHover: true,
-          draggable: true,
-        });
-        // window.location.reload();
-      })
+    if (numDays && expectedLeadCount) {
+      axios
+        .post("https://hunt-m16y.onrender.com/add", newData)
+        .then((response) => {
+          console.log("Data saved:", response);
+          toast.success(`Entry added successfully`, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            theme: "dark",
+            pauseOnHover: true,
+            draggable: true,
+          });
+          // window.location.reload();
+        })
 
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    }
   };
 
   useEffect(() => {
