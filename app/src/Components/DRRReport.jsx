@@ -37,7 +37,34 @@ const DRRReport = () => {
     }
   }, [startDate]);
 
-  const handleCalculate = () => {
+  let newData = {};
+  // const newData = {
+  //   startDate: startDate,
+  //   endDate: endDate,
+  //   month: month,
+  //   year: year,
+  //   excludeDates: excludeDates,
+  //   numDays: numDays,
+  //   leadCount: leadCount,
+  //   expectedLeadCount: expectedLeadCount,
+  // };
+
+  useEffect(() => {
+    newData = {
+      startDate: startDate,
+      endDate: endDate,
+      month: month,
+      year: year,
+      excludeDates: excludeDates,
+      numDays: numDays,
+      leadCount: leadCount,
+      expectedLeadCount: expectedLeadCount,
+    };
+
+    console.log(newData);
+  });
+
+  const handleCalculate = async () => {
     if (!startDate) {
       toast.error(`Please select start date`, {
         position: "top-right",
@@ -78,16 +105,23 @@ const DRRReport = () => {
     }
     // Calculate the number of days between selected dates
     const startDateObj = new Date(startDate);
+    console.log(startDateObj);
+
     const endDateObj = new Date(endDate);
+    console.log(endDateObj);
+
     // const excludedDatesArray = excludeDates
     //   .split(",")
     //   .map((date) => date.trim());
     const numDaysExcluded = excludeDates.filter(
       (date) => date >= startDate && date <= endDate
     ).length;
+
+    console.log(numDaysExcluded);
     const numDaysSelected =
       (endDateObj - startDateObj) / (1000 * 60 * 60 * 24) - numDaysExcluded;
 
+    console.log(numDaysSelected);
     setNumDays(numDaysSelected);
     console.log(numDays);
 
@@ -98,19 +132,9 @@ const DRRReport = () => {
       setExpectedLeadCount("0");
     }
     console.log(expectedLeadCount);
-    const newData = {
-      startDate: startDate,
-      endDate: endDate,
-      month: month,
-      year: year,
-      excludeDates: excludeDates,
-      numDays: numDays,
-      leadCount: leadCount,
-      expectedLeadCount: expectedLeadCount,
-    };
-    console.log(newData);
+
     axios
-      .post("https://hunt-m16y.onrender.com/add", newData)
+      .post("http://localhost:5000/", newData)
       .then((response) => {
         console.log("Data saved:", response);
         toast.success(`Entry added successfully`, {
@@ -122,7 +146,7 @@ const DRRReport = () => {
           pauseOnHover: true,
           draggable: true,
         });
-        window.location.reload();
+        // window.location.reload();
       })
 
       .catch((error) => {
@@ -134,9 +158,9 @@ const DRRReport = () => {
     axios
       .get("https://hunt-m16y.onrender.com/entries")
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         setEntries(response.data);
-        console.log(entries);
+        // console.log(entries);
       })
       .catch((error) => {
         console.error("Error fetching entries:", error);
@@ -150,7 +174,7 @@ const DRRReport = () => {
     setYear("");
     setLeadCount("");
     setNumDays("");
-    setExcludeDates("");
+    setExcludeDates([]);
     setExpectedLeadCount("");
   };
 
@@ -190,34 +214,104 @@ const DRRReport = () => {
                     <Table>
                       <TableHead>
                         <TableRow>
-                          <TableCell style={{ border: "1px solid #000" }}>
+                          <TableCell
+                            className="table-cell2"
+                            style={{
+                              border: "1px solid #000",
+                              fontSize: "20px",
+                              fontWeight: 700,
+                            }}
+                          >
                             Action
                           </TableCell>
-                          <TableCell style={{ border: "1px solid #000" }}>
+                          <TableCell
+                            className="table-cell2"
+                            style={{
+                              border: "1px solid #000",
+                              fontWeight: 700,
+                              fontSize: "20px",
+                            }}
+                          >
                             ID
                           </TableCell>
-                          <TableCell style={{ border: "1px solid #000" }}>
+                          <TableCell
+                            className="table-cell2"
+                            style={{
+                              border: "1px solid #000",
+                              fontWeight: 700,
+                              fontSize: "20px",
+                            }}
+                          >
                             Start Date
                           </TableCell>
-                          <TableCell style={{ border: "1px solid #000" }}>
+                          <TableCell
+                            className="table-cell2"
+                            style={{
+                              border: "1px solid #000",
+                              fontWeight: 700,
+                              fontSize: "20px",
+                            }}
+                          >
                             End Date
                           </TableCell>
-                          <TableCell style={{ border: "1px solid #000" }}>
+                          <TableCell
+                            className="table-cell2"
+                            style={{
+                              border: "1px solid #000",
+                              fontWeight: 700,
+                              fontSize: "20px",
+                            }}
+                          >
                             Month, Year
                           </TableCell>
-                          <TableCell style={{ border: "1px solid #000" }}>
+                          <TableCell
+                            className="table-cell2"
+                            style={{
+                              border: "1px solid #000",
+                              fontWeight: 700,
+                              fontSize: "20px",
+                            }}
+                          >
                             Dates Excluded
                           </TableCell>
-                          <TableCell style={{ border: "1px solid #000" }}>
+                          <TableCell
+                            className="table-cell2"
+                            style={{
+                              border: "1px solid #000",
+                              fontWeight: 700,
+                              fontSize: "20px",
+                            }}
+                          >
                             No of Days
                           </TableCell>
-                          <TableCell style={{ border: "1px solid #000" }}>
+                          <TableCell
+                            className="table-cell2"
+                            style={{
+                              border: "1px solid #000",
+                              fontWeight: 700,
+                              fontSize: "20px",
+                            }}
+                          >
                             Lead Count
                           </TableCell>
-                          <TableCell style={{ border: "1px solid #000" }}>
+                          <TableCell
+                            className="table-cell2"
+                            style={{
+                              border: "1px solid #000",
+                              fontWeight: 700,
+                              fontSize: "20px",
+                            }}
+                          >
                             Expected DRR
                           </TableCell>
-                          <TableCell style={{ border: "1px solid #000" }}>
+                          <TableCell
+                            className="table-cell2"
+                            style={{
+                              border: "1px solid #000",
+                              fontWeight: 700,
+                              fontSize: "20px",
+                            }}
+                          >
                             Last Updated
                           </TableCell>
                         </TableRow>
@@ -228,30 +322,66 @@ const DRRReport = () => {
                             backgroundColor: "rgb(187, 183, 183",
                           }}
                         >
-                          <TableCell style={{ border: "1px solid #000" }}>
+                          <TableCell
+                            className="table-cell"
+                            style={{
+                              border: "1px solid #000",
+                              fontSize: "20px",
+                            }}
+                          >
                             N/A
                           </TableCell>
-                          <TableCell style={{ border: "1px solid #000" }}>
+                          <TableCell
+                            className="table-cell"
+                            style={{
+                              border: "1px solid #000",
+                              fontSize: "20px",
+                            }}
+                          >
                             {id}
                           </TableCell>
-                          <TableCell style={{ border: "1px solid #000" }}>
+                          <TableCell
+                            className="table-cell"
+                            style={{
+                              border: "1px solid #000",
+                              fontSize: "20px",
+                            }}
+                          >
                             <TextField
                               type="date"
                               value={startDate}
                               onChange={(e) => setStartDate(e.target.value)}
                             />
                           </TableCell>
-                          <TableCell style={{ border: "1px solid #000" }}>
+                          <TableCell
+                            className="table-cell"
+                            style={{
+                              border: "1px solid #000",
+                              fontSize: "20px",
+                            }}
+                          >
                             <TextField
                               type="date"
                               value={endDate}
                               onChange={(e) => setEndDate(e.target.value)}
                             />
                           </TableCell>
-                          <TableCell style={{ border: "1px solid #000" }}>
+                          <TableCell
+                            className="table-cell"
+                            style={{
+                              border: "1px solid #000",
+                              fontSize: "20px",
+                            }}
+                          >
                             {month}, {year}
                           </TableCell>
-                          <TableCell style={{ border: "1px solid #000" }}>
+                          <TableCell
+                            className="table-cell"
+                            style={{
+                              border: "1px solid #000",
+                              fontSize: "20px",
+                            }}
+                          >
                             {excludeDates
                               .map(
                                 (date, index) =>
@@ -276,20 +406,39 @@ const DRRReport = () => {
                               onChange={handleDate}
                             />
                           </TableCell>
-                          <TableCell style={{ border: "1px solid #000" }}>
+                          <TableCell
+                            className="table-cell"
+                            style={{
+                              border: "1px solid #000",
+                              fontSize: "20px",
+                            }}
+                          >
                             {numDays}
                           </TableCell>
-                          <TableCell style={{ border: "1px solid #000" }}>
+                          <TableCell
+                            className="table-cell"
+                            style={{
+                              border: "1px solid #000",
+                              fontSize: "20px",
+                            }}
+                          >
                             <TextField
                               type="text"
                               value={leadCount}
                               onChange={(e) => setLeadCount(e.target.value)}
                             />
                           </TableCell>
-                          <TableCell style={{ border: "1px solid #000" }}>
+                          <TableCell
+                            className="table-cell"
+                            style={{
+                              border: "1px solid #000",
+                              fontSize: "20px",
+                            }}
+                          >
                             {expectedLeadCount}
                           </TableCell>
                           <TableCell
+                            className="table-cell"
                             style={{
                               display: "flex",
                               flexDirection: "column",
@@ -320,30 +469,66 @@ const DRRReport = () => {
                       <TableBody>
                         {entries.map((entry, index) => (
                           <TableRow key={entry._id}>
-                            <TableCell style={{ border: "1px solid #000" }}>
+                            <TableCell
+                              className="table-cell"
+                              style={{
+                                border: "1px solid #000",
+                                fontSize: "20px",
+                              }}
+                            >
                               N/A
                             </TableCell>
-                            <TableCell style={{ border: "1px solid #000" }}>
+                            <TableCell
+                              className="table-cell"
+                              style={{
+                                border: "1px solid #000",
+                                fontSize: "20px",
+                              }}
+                            >
                               {id + index + 1}
                             </TableCell>
-                            <TableCell style={{ border: "1px solid #000" }}>
+                            <TableCell
+                              className="table-cell"
+                              style={{
+                                border: "1px solid #000",
+                                fontSize: "20px",
+                              }}
+                            >
                               {
                                 new Date(entry.startDate)
                                   .toISOString()
                                   .split("T")[0]
                               }
                             </TableCell>
-                            <TableCell style={{ border: "1px solid #000" }}>
+                            <TableCell
+                              className="table-cell"
+                              style={{
+                                border: "1px solid #000",
+                                fontSize: "20px",
+                              }}
+                            >
                               {
                                 new Date(entry.endDate)
                                   .toISOString()
                                   .split("T")[0]
                               }
                             </TableCell>
-                            <TableCell style={{ border: "1px solid #000" }}>
+                            <TableCell
+                              className="table-cell"
+                              style={{
+                                border: "1px solid #000",
+                                fontSize: "20px",
+                              }}
+                            >
                               {entry.month}, {entry.year}
                             </TableCell>
-                            <TableCell style={{ border: "1px solid #000" }}>
+                            <TableCell
+                              className="table-cell"
+                              style={{
+                                border: "1px solid #000",
+                                fontSize: "20px",
+                              }}
+                            >
                               {entry.excludeDates
                                 .map(
                                   (date, index) =>
@@ -353,7 +538,7 @@ const DRRReport = () => {
                                   if (index % 2 === 0) {
                                     acc.push(
                                       <div key={index}>
-                                        {date} -{" "}
+                                        {date} ,{" "}
                                         {entry.excludeDates[index + 1]
                                           ? entry.excludeDates[index + 1].split(
                                               "T"
@@ -365,14 +550,66 @@ const DRRReport = () => {
                                   return acc;
                                 }, [])}
                             </TableCell>
-                            <TableCell style={{ border: "1px solid #000" }}>
+                            <TableCell
+                              className="table-cell"
+                              style={{
+                                border: "1px solid #000",
+                                fontSize: "20px",
+                              }}
+                            >
                               {entry.numDays}
                             </TableCell>
-                            <TableCell style={{ border: "1px solid #000" }}>
+                            <TableCell
+                              className="table-cell"
+                              style={{
+                                border: "1px solid #000",
+                                fontSize: "20px",
+                              }}
+                            >
                               {entry.leadCount}
                             </TableCell>
-                            <TableCell style={{ border: "1px solid #000" }}>
+                            <TableCell
+                              className="table-cell"
+                              style={{
+                                border: "1px solid #000",
+                                fontSize: "20px",
+                              }}
+                            >
                               {entry.expectedLeadCount}
+                            </TableCell>
+                            <TableCell
+                              className="table-cell"
+                              style={{
+                                border: "1px solid #000",
+                                fontSize: "20px",
+                              }}
+                            >
+                              {/* {entry.updatedAt.toISOString().split("T")[0]} */}
+
+                              <p
+                                style={{
+                                  fontWeight: 700,
+                                }}
+                              >
+                                {
+                                  new Date(entry.updatedAt)
+                                    .toISOString()
+                                    .split("T")[0]
+                                }
+                              </p>
+
+                              {/* <br /> */}
+
+                              <p
+                                style={{
+                                  fontWeight: 300,
+                                }}
+                              >
+                                {new Date(entry.updatedAt)
+                                  .toISOString()
+                                  .split("T")[1]
+                                  .slice(0, 8)}
+                              </p>
                             </TableCell>
                           </TableRow>
                         ))}

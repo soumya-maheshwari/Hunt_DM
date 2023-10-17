@@ -9,3 +9,18 @@
   padding: 0;
   background-color: black;
 }
+
+p {
+  font-size: 19px;
+}
+
+.table-cell:hover {
+  background-color: rgb(135, 133, 133);
+  transition: background-color 0.3s ease;
+}
+
+.table-cell2:hover {
+  background-color: rgb(27, 17, 17);
+  transition: background-color 0.3s ease;
+  color: white;
+}
