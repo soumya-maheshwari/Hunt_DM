@@ -18,7 +18,7 @@ import { ToastContainer, toast } from "react-toastify";
 const DRRReport = () => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [excludeDates, setExcludeDates] = useState("");
+  const [excludeDates, setExcludeDates] = useState([]);
   const [leadCount, setLeadCount] = useState("");
   const [month, setMonth] = useState("");
   const [year, setYear] = useState("");
@@ -79,10 +79,10 @@ const DRRReport = () => {
     // Calculate the number of days between selected dates
     const startDateObj = new Date(startDate);
     const endDateObj = new Date(endDate);
-    const excludedDatesArray = excludeDates
-      .split(",")
-      .map((date) => date.trim());
-    const numDaysExcluded = excludedDatesArray.filter(
+    // const excludedDatesArray = excludeDates
+    //   .split(",")
+    //   .map((date) => date.trim());
+    const numDaysExcluded = excludeDates.filter(
       (date) => date >= startDate && date <= endDate
     ).length;
     const numDaysSelected =
@@ -98,11 +98,9 @@ const DRRReport = () => {
       setExpectedLeadCount("0");
     }
     console.log(expectedLeadCount);
-
     const newData = {
       startDate: startDate,
       endDate: endDate,
-      id: id,
       month: month,
       year: year,
       excludeDates: excludeDates,
@@ -110,7 +108,7 @@ const DRRReport = () => {
       leadCount: leadCount,
       expectedLeadCount: expectedLeadCount,
     };
-
+    console.log(newData);
     axios
       .post("https://hunt-m16y.onrender.com/add", newData)
       .then((response) => {
@@ -124,7 +122,9 @@ const DRRReport = () => {
           pauseOnHover: true,
           draggable: true,
         });
+        window.location.reload();
       })
+
       .catch((error) => {
         console.error("Error:", error);
       });
@@ -134,7 +134,8 @@ const DRRReport = () => {
     axios
       .get("https://hunt-m16y.onrender.com/entries")
       .then((response) => {
-        setEntries(response);
+        console.log(response.data);
+        setEntries(response.data);
         console.log(entries);
       })
       .catch((error) => {
@@ -152,10 +153,26 @@ const DRRReport = () => {
     setExcludeDates("");
     setExpectedLeadCount("");
   };
+
+  const handleDate = (e) => {
+    const date = e.target.value;
+    // Ensure the date is not empty and not already in the excludeDates array
+    if (date && !excludeDates.includes(date)) {
+      setExcludeDates([...excludeDates, date]);
+    }
+    console.log(excludeDates);
+  };
+
   return (
     <>
       <div className="start">
-        <Container style={{ paddingTop: "16vh", maxWidth: "90vw" }}>
+        <Container
+          style={{
+            paddingTop: "15vh",
+            maxWidth: "90vw",
+            paddingBottom: "99vh",
+          }}
+        >
           <Paper elevation={3}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
@@ -185,7 +202,11 @@ const DRRReport = () => {
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      <TableRow>
+                      <TableRow
+                        style={{
+                          backgroundColor: "rgb(187, 183, 183",
+                        }}
+                      >
                         <TableCell>N/A</TableCell>
                         <TableCell>{id}</TableCell>
                         <TableCell>
@@ -206,10 +227,11 @@ const DRRReport = () => {
                           {month}, {year}
                         </TableCell>
                         <TableCell>
+                          {excludeDates.join(", ")}
                           <TextField
                             type="date"
-                            value={excludeDates}
-                            onChange={(e) => setExcludeDates(e.target.value)}
+                            value={excludeDates.join(", ")} // Display excluded dates as a comma-separated string
+                            onChange={handleDate}
                           />
                         </TableCell>
                         <TableCell>{numDays}day</TableCell>
@@ -221,13 +243,18 @@ const DRRReport = () => {
                           />
                         </TableCell>
                         <TableCell>{expectedLeadCount}</TableCell>
-                        <TableCell>
+                        <TableCell
+                          style={{
+                            display: "flex",
+                            flexDirection: "row",
+                          }}
+                        >
                           <Button
                             size="small"
                             variant="contained"
                             color="success"
                             style={{
-                              marginRight: "0.5vw",
+                              marginRight: "0.1vw",
                             }}
                             onClick={handleCalculate}
                           >
@@ -243,6 +270,23 @@ const DRRReport = () => {
                           </Button>
                         </TableCell>
                       </TableRow>
+                    </TableBody>
+                    <TableBody>
+                      {entries.map((entry, index) => (
+                        <TableRow key={entry._id}>
+                          <TableCell>N/A</TableCell>
+                          <TableCell>{id + index + 1}</TableCell>
+                          <TableCell>{entry.startDate}</TableCell>
+                          <TableCell>{entry.endDate}</TableCell>
+                          <TableCell>
+                            {entry.month}, {entry.year}
+                          </TableCell>
+                          <TableCell>{entry.excludeDates}</TableCell>
+                          <TableCell>{entry.numDays}</TableCell>
+                          <TableCell>{entry.leadCount}</TableCell>
+                          <TableCell>{entry.expectedLeadCount}</TableCell>
+                        </TableRow>
+                      ))}
                     </TableBody>
                   </Table>
                 </TableContainer>
