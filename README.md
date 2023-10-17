@@ -1,5 +1,11 @@
 # Hunt_DM
 
+## Screenshots
+
+![image](https://github.com/soumya-maheshwari/Hunt_DM/assets/104725768/18ca2a11-28ec-441b-a8b1-f81a0e74e431)
+![image](https://github.com/soumya-maheshwari/Hunt_DM/assets/104725768/2618372c-1c9c-4214-86e0-f121bae3db22)
+![image](https://github.com/soumya-maheshwari/Hunt_DM/assets/104725768/bd884204-f33e-42c4-aafe-0a98850a5cd0)
+
 ## Installation
 
 1. Clone the repository:

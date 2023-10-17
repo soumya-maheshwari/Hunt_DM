@@ -14,7 +14,6 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
-import { createTheme } from "@mui/material/styles";
 
 const DRRReport = () => {
   const [startDate, setStartDate] = useState("");
@@ -27,26 +26,6 @@ const DRRReport = () => {
   const [expectedLeadCount, setExpectedLeadCount] = useState("");
   const [id, setId] = useState(1);
   const [entries, setEntries] = useState([]);
-
-  const lightTheme = createTheme({
-    // Light theme properties
-    palette: {
-      primary: {
-        main: "#2196F3",
-      },
-      type: "light",
-    },
-  });
-
-  const darkTheme = createTheme({
-    // Dark theme properties
-    palette: {
-      primary: {
-        main: "#3F51B5",
-      },
-      type: "dark",
-    },
-  });
 
   useEffect(() => {
     // Update month and year when the start date changes
@@ -179,7 +158,7 @@ const DRRReport = () => {
 
   useEffect(() => {
     axios
-      .get("https://hunt-m16y.onrender.com/entries")
+      .get("https://hunt-m16y.onrender.com/entriies")
       .then((response) => {
         // console.log(response.data);
         setEntries(response.data);
@@ -414,7 +393,7 @@ const DRRReport = () => {
                                 if (index % 2 === 0) {
                                   acc.push(
                                     <div key={index}>
-                                      {date} -{" "}
+                                      {date} ,{" "}
                                       {excludeDates[index + 1]
                                         ? excludeDates[index + 1].split("T")[0]
                                         : ""}
