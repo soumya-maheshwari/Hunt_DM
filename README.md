@@ -1,5 +1,7 @@
 # Hunt_DM
 
+Select Start Date, End Date, Dates Excluded and Enter Lead count. Depending upon that we get Month, year, No of Days and expected DRR.
+
 ## Screenshots
 
 ![image](https://github.com/soumya-maheshwari/Hunt_DM/assets/104725768/18ca2a11-28ec-441b-a8b1-f81a0e74e431)

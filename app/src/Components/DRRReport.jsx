@@ -110,6 +110,19 @@ const DRRReport = () => {
     const endDateObj = new Date(endDate);
     console.log(endDateObj);
 
+    if (startDateObj > endDateObj) {
+      toast.error(`End date cannot be less than start date`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        theme: "dark",
+        pauseOnHover: true,
+        draggable: true,
+      });
+      return;
+    }
+
     // const excludedDatesArray = excludeDates
     //   .split(",")
     //   .map((date) => date.trim());
@@ -158,7 +171,7 @@ const DRRReport = () => {
 
   useEffect(() => {
     axios
-      .get("https://hunt-m16y.onrender.com/entriies")
+      .get("https://hunt-m16y.onrender.com/entries")
       .then((response) => {
         // console.log(response.data);
         setEntries(response.data);
